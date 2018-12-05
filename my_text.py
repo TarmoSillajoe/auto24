@@ -13,9 +13,10 @@ Read the text file to a list mylist where eache item is a row.
     new_list_3: mylist[indexn:]
 """
 
-p = re.compile(r'^.*ladu2.*$')
 
-indexes = []
+
+testlist = ['kass','koer']
+print('Koer on ' + str(testlist.index('koer')) + 's.' )
 
 def lines_generator(placeholder=0):
     with open("tabel.txt", "rt") as f:
@@ -25,4 +26,39 @@ def lines_generator(placeholder=0):
 
 placeholder=0
 mylines = lines_generator()   
-print(next(mylines))
+
+filecontent=[]
+
+
+
+def myfunc(mylist):
+
+
+
+    for line in mylines:
+        if not p.search(line):
+            line = line.rstrip('\n')
+            line += '\tladu2'
+            filecontent.append(line)
+        else: 
+            pop_index = mylist.index(p.search(line).group(0))
+            mylist.pop(pop_index)    
+#############################################################################
+
+mylist =  ['ladu2','ladu3']
+p = re.compile("|".join(mylist))
+
+
+
+for line in mylines:
+    if not p.search(line):
+         line = line.rstrip('\n')
+         line += '\tladu2'
+         filecontent.append(line)
+    else: 
+        pop_index = mylist.index(p.search(line).group(0))
+        mylist.pop(pop_index)
+
+
+print('koik')
+
