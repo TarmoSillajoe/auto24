@@ -21,7 +21,7 @@ def lines_generator(placeholder=0):
 
 
 placeholder=0
-mylines = lines_generator()   
+
 
 filecontent=[]
 
@@ -34,28 +34,35 @@ def myfunc(mylist):
     for line in mylines:
         if not p.search(line):
             line = line.rstrip('\n')
-            line += '\tladu2'
+            line += '\t' + p.search(line).group(0)
             filecontent.append(line)
         else: 
             pop_index = mylist.index(p.search(line).group(0))
             mylist.pop(pop_index)    
 #############################################################################
-
+mylines = lines_generator()   
 mylist =  ['ladu2','ladu3','ladu1']
 p = re.compile("|".join(mylist))
 
 
 stock = 'ladu2'
 
+
+matched_item = None
 for line in mylines:
-    if not p.search(line):
-         line = line.rstrip('\n')
-         line += '\t' + p.search(line).group(0)
-         filecontent.append(line)
-    else: 
-        pop_index = mylist.index(p.search(line).group(0))
-        mylist.pop(pop_index)
+    if not (matched_item):
+        matched_item = p.search(line)
+        continue
+    else:
+        if not p.search(line):
+            line = line.rstrip('\n')
+            line += '\t' + matched_item.group(0)
+            filecontent.append(line)
+        else: 
+            matched_item = p.search(line)
+            pop_index = mylist.index(matched_item.group(0))
+            mylist.pop(pop_index)
 
+print(filecontent)
 
-print('koik')
 
