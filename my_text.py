@@ -14,10 +14,6 @@ Read the text file to a list mylist where eache item is a row.
 """
 
 
-
-testlist = ['kass','koer']
-print('Koer on ' + str(testlist.index('koer')) + 's.' )
-
 def lines_generator(placeholder=0):
     with open("tabel.txt", "rt") as f:
         for line in islice(f,0,6 ):
@@ -45,15 +41,16 @@ def myfunc(mylist):
             mylist.pop(pop_index)    
 #############################################################################
 
-mylist =  ['ladu2','ladu3']
+mylist =  ['ladu2','ladu3','ladu1']
 p = re.compile("|".join(mylist))
 
 
+stock = 'ladu2'
 
 for line in mylines:
     if not p.search(line):
          line = line.rstrip('\n')
-         line += '\tladu2'
+         line += '\t' + p.search(line).group(0)
          filecontent.append(line)
     else: 
         pop_index = mylist.index(p.search(line).group(0))
